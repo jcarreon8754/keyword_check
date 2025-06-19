@@ -4,7 +4,7 @@ from KW_eng import keyword_search
 
 async def playwright_scraper(url, keywords, mode='partial'):
     async with async_playwright() as ap:
-        browser = await ap.chromium.launch(headless=True)
+        browser = await ap.chromium.launch(headless=True, args=['--no-sandbox'])
         page = await browser.new_page()
         await page.goto(url, timeout=5000)
         html = await page.content()
