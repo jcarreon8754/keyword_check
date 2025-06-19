@@ -1,5 +1,0 @@
-[server]
-headless = true
-
-[runner]
-postCreateCommand = "playwright install chromium"
