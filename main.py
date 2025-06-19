@@ -1,7 +1,8 @@
 import streamlit as st
 import asyncio
-from static_HTML_scrape import static_scraper as static
-from js_HTML_scrape import playwright_scraper as dynamic
+from static_HTML_scrape import static_scraper
+from js_HTML_scrape import playwright_scraper
+from KW_eng import keyword_search
 
 st.title("Web Keyword Scraper")
 
@@ -17,10 +18,10 @@ if st.button("Run Scraper"):
         keywords = [k.strip() for k in keywords_input.split(',')]
         if engine == "Static (requests + bs4)":
             st.write("Checking static HTML...")
-            results = static(url, keywords, mode)
+            results = static_scraper(url, keywords, mode)
         else:
             st.write("Checking Dynamic HTML Loads...")
-            results = asyncio.run(dynamic(url, keywords, mode))
+            results = asyncio.run(playwright_scraper(url, keywords, mode))
 
         st.subheader("Results:")
         for keyword, count in results.items():

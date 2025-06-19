@@ -1,6 +1,6 @@
 import requests
-from bs4 import BeautifulSoup as Bs
-from KW_eng import keyword_search as search
+from bs4 import BeautifulSoup
+from KW_eng import keyword_search
 
 def static_scraper(url, keywords, mode='partial'):
     headers = {'User-Agent': 'Mozilla/5.0'}
@@ -11,9 +11,9 @@ def static_scraper(url, keywords, mode='partial'):
         print(f'Error fetching: {e}')
         return {}
 
-    soup = Bs(response.text, 'lxml')
+    soup = BeautifulSoup(response.text, 'lxml')
     paragraphs = soup.find_all('p')
     all_text = " ".join(p.get_text(separator=" ", strip=True) for p in paragraphs)
 
-    results = search(all_text, keywords, mode=mode)
+    results = keyword_search(all_text, keywords, mode=mode)
     return results

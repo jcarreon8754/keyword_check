@@ -1,6 +1,6 @@
 from playwright.async_api import async_playwright
 from bs4 import BeautifulSoup as Bs
-from KW_eng import keyword_search as search
+from KW_eng import keyword_search
 
 async def playwright_scraper(url, keywords, mode='partial'):
     async with async_playwright() as ap:
@@ -12,5 +12,5 @@ async def playwright_scraper(url, keywords, mode='partial'):
     soup = Bs(html, 'lxml')
     paragraphs = soup.find_all('p')
     all_text = " ".join([p.get_text(separator=" ", strip=True) for p in paragraphs])
-    results = search(all_text, keywords, mode=mode)
+    results = keyword_search(all_text, keywords, mode=mode)
     return results
